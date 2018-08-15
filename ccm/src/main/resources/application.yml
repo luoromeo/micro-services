@@ -1,0 +1,26 @@
+# 容器 配置
+server:
+  port: 8443     # https 端口号，正式 443；测试 8443
+# 数据库 及 Redis 配置    
+spring:
+#  jackson:
+#    date-format: yyyy-MM-dd HH:mm:ss
+  redis:
+    host: localhost
+    password:
+#  使用 MySQL 不用做任何修改
+  datasource:
+    url: jdbc:mysql://localhost:3306/ccm_test?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: reedahgh3iquieHei5geez7neimiefei
+    sql-script-encoding: utf-8
+    hikari:
+      max-lifetime: 1765000
+      maximum-pool-size: 10
+  jpa:
+    show-sql: true
+  cache:
+    type: ehcache
+    ehcache:
+      config: ehcache.xml

@@ -1,0 +1,15 @@
+<ehcache>
+    <defaultCache
+            maxElementsInMemory="10000"
+            eternal="false"
+            overflowToDisk="true"
+            timeToIdleSeconds="10"
+            timeToLiveSeconds="120"
+            diskPersistent="false"
+            memoryStoreEvictionPolicy="LRU"
+            diskExpiryThreadIntervalSeconds="120"/>
+
+    <cache name="creditCardBill" maxEntriesLocalHeap="200"
+           timeToLiveSeconds="600">
+    </cache>
+</ehcache>
