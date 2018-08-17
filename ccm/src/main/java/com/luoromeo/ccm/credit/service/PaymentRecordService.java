@@ -1,10 +1,10 @@
 package com.luoromeo.ccm.credit.service;
 
-import com.luoromeo.commom.base.entity.Result;
-import com.luoromeo.commom.base.entity.ResultList;
-import com.luoromeo.commom.base.service.BaseService;
 import com.luoromeo.ccm.credit.entity.PaymentRecord;
 import com.luoromeo.ccm.credit.po.PaymentPo;
+import com.luoromeo.commom.base.entity.ResultList;
+import com.luoromeo.commom.base.entity.Results;
+import com.luoromeo.commom.base.service.BaseService;
 
 /**
  * @description
@@ -23,5 +23,5 @@ public interface PaymentRecordService extends BaseService<PaymentRecord> {
      * @param paymentPo
      * @return
      */
-    Result<String> payment(PaymentPo paymentPo);
+    Results.Result<String> payment(PaymentPo paymentPo);
 }

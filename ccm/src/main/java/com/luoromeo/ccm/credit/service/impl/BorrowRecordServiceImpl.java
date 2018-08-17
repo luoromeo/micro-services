@@ -1,7 +1,7 @@
 package com.luoromeo.ccm.credit.service.impl;
 
-import com.luoromeo.commom.base.entity.Result;
 import com.luoromeo.commom.base.entity.ResultList;
+import com.luoromeo.commom.base.entity.Results.Result;
 import com.luoromeo.commom.base.service.impl.BaseServiceImpl;
 import com.luoromeo.ccm.credit.entity.BorrowRecord;
 import com.luoromeo.ccm.credit.entity.CreditAccount;
@@ -51,7 +51,7 @@ public class BorrowRecordServiceImpl extends BaseServiceImpl<BorrowRecord, Borro
         if (creditAccount != null) {
             creditAccount.setAvailableCredit(creditAccount.getAvailableCredit().subtract(borrowRecord.getMoney()));
             borrowRecord.setCreditAccount(creditAccount);
-            Long borrowDay = DateUtils.dateDiff(DateUtils.DAY, borrowRecord.getBorrowingDate(), borrowRecord.getPaymentDate());
+            long borrowDay = DateUtils.dateDiff(DateUtils.DAY, borrowRecord.getBorrowingDate(), borrowRecord.getPaymentDate());
             borrowRecord.setBorrowingDay(Math.toIntExact(borrowDay));
             borrowRecord.setFee(borrowRecord.getFee());
             BigDecimal interest = BigDecimal.ZERO;

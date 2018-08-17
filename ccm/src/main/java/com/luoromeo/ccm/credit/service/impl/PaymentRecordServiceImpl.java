@@ -1,21 +1,5 @@
 package com.luoromeo.ccm.credit.service.impl;
 
-import com.luoromeo.commom.base.entity.Result;
-import com.luoromeo.commom.base.entity.ResultList;
-import com.luoromeo.commom.base.service.impl.BaseServiceImpl;
-import com.luoromeo.ccm.credit.entity.BorrowRecord;
-import com.luoromeo.ccm.credit.entity.PaymentRecord;
-import com.luoromeo.ccm.credit.po.PaymentPo;
-import com.luoromeo.ccm.credit.repository.PaymentRecordRepository;
-import com.luoromeo.ccm.credit.service.BorrowRecordService;
-import com.luoromeo.ccm.credit.service.CreditCardBillService;
-import com.luoromeo.ccm.credit.service.PaymentRecordService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.criteria.Predicate;
 import java.math.BigDecimal;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -23,6 +7,24 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.criteria.Predicate;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.luoromeo.ccm.credit.entity.BorrowRecord;
+import com.luoromeo.ccm.credit.entity.PaymentRecord;
+import com.luoromeo.ccm.credit.po.PaymentPo;
+import com.luoromeo.ccm.credit.repository.PaymentRecordRepository;
+import com.luoromeo.ccm.credit.service.BorrowRecordService;
+import com.luoromeo.ccm.credit.service.CreditCardBillService;
+import com.luoromeo.ccm.credit.service.PaymentRecordService;
+import com.luoromeo.commom.base.entity.ResultList;
+import com.luoromeo.commom.base.entity.Results.Result;
+import com.luoromeo.commom.base.service.impl.BaseServiceImpl;
 
 /**
  * @description
@@ -75,7 +77,7 @@ public class PaymentRecordServiceImpl extends BaseServiceImpl<PaymentRecord, Pay
         PaymentRecord paymentRecord = paymentPo.getPaymentRecord();
         paymentRecord.setInterest(BigDecimal.ZERO);
         save(paymentRecord);
-        if (paymentRecord.getType() == 1)  {
+        if (paymentRecord.getType() == 1) {
             //套现还款
             BorrowRecord borrowRecord = paymentPo.getBorrowRecord();
             borrowRecordServiceImpl.save(borrowRecord);
