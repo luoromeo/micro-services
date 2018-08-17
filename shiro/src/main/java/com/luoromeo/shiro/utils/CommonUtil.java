@@ -16,14 +16,16 @@ import com.luoromeo.shiro.exception.CommonJsonException;
  * @date 2018年08月16日 10:45
  * @modified By
  */
-public class CommonUtil {
+public enum CommonUtil {
+
+    INSTANCE;
 
     /**
      * 返回一个returnData为空对象的成功消息的json
      *
      * @return
      */
-    public static JSONObject successJson() {
+    public JSONObject successJson() {
         return successJson(new JSONObject());
     }
 
@@ -33,7 +35,7 @@ public class CommonUtil {
      * @param returnData json里的主要内容
      * @return
      */
-    public static JSONObject successJson(Object returnData) {
+    public JSONObject successJson(Object returnData) {
         JSONObject resultJson = new JSONObject();
         resultJson.put("returnCode", Constants.SUCCESS_CODE);
         resultJson.put("returnMsg", Constants.SUCCESS_MSG);
@@ -47,7 +49,7 @@ public class CommonUtil {
      * @param errorEnum 错误码的errorEnum
      * @return
      */
-    public static JSONObject errorJson(ErrorEnum errorEnum) {
+    public JSONObject errorJson(ErrorEnum errorEnum) {
         JSONObject resultJson = new JSONObject();
         resultJson.put("returnCode", errorEnum.getErrorCode());
         resultJson.put("returnMsg", errorEnum.getErrorMsg());
@@ -62,7 +64,7 @@ public class CommonUtil {
      * @param list        查询分页对象list
      * @param totalCount  查询出记录的总条数
      */
-    public static JSONObject successPage(final JSONObject requestJson, List<JSONObject> list, int totalCount) {
+    public JSONObject successPage(final JSONObject requestJson, List<JSONObject> list, int totalCount) {
         int pageRow = requestJson.getIntValue("pageRow");
         int totalPage = getPageCounts(pageRow, totalCount);
         JSONObject result = successJson();
@@ -79,7 +81,7 @@ public class CommonUtil {
      *
      * @param list 查询分页对象list
      */
-    public static JSONObject successPage(List<JSONObject> list) {
+    public JSONObject successPage(List<JSONObject> list) {
         JSONObject result = successJson();
         JSONObject returnData = new JSONObject();
         returnData.put("list", list);
@@ -94,7 +96,7 @@ public class CommonUtil {
      * @param itemCount 结果的总条数
      * @return
      */
-    public static int getPageCounts(int pageRow, int itemCount) {
+    public int getPageCounts(int pageRow, int itemCount) {
         if (itemCount == 0) {
             return 1;
         }
@@ -109,7 +111,7 @@ public class CommonUtil {
      * @param request
      * @return
      */
-    public static JSONObject request2Json(HttpServletRequest request) {
+    public JSONObject request2Json(HttpServletRequest request) {
         JSONObject requestJson = new JSONObject();
         Enumeration paramNames = request.getParameterNames();
         while (paramNames.hasMoreElements()) {
@@ -137,7 +139,7 @@ public class CommonUtil {
      * @param requiredColumns
      * @return
      */
-    public static JSONObject convert2JsonAndCheckRequiredColumns(HttpServletRequest request, String requiredColumns) {
+    public JSONObject convert2JsonAndCheckRequiredColumns(HttpServletRequest request, String requiredColumns) {
         JSONObject jsonObject = request2Json(request);
         hasAllRequired(jsonObject, requiredColumns);
         return jsonObject;
@@ -150,7 +152,7 @@ public class CommonUtil {
      * @param jsonObject
      * @return
      */
-    public static void hasAllRequired(final JSONObject jsonObject, String requiredColumns) {
+    public void hasAllRequired(final JSONObject jsonObject, String requiredColumns) {
         if (!StringUtils.isEmpty(requiredColumns)) {
             //验证字段非空
             String[] columns = requiredColumns.split(",");
@@ -177,7 +179,7 @@ public class CommonUtil {
      * @param paramObject    查询条件json
      * @param defaultPageRow 默认的每页条数,即前端不传pageRow参数时的每页条数
      */
-    public static void fillPageParam(final JSONObject paramObject, int defaultPageRow) {
+    public void fillPageParam(final JSONObject paramObject, int defaultPageRow) {
         int pageNum = paramObject.getIntValue("pageNum");
         pageNum = pageNum == 0 ? 1 : pageNum;
         int pageRow = paramObject.getIntValue("pageRow");
@@ -195,7 +197,7 @@ public class CommonUtil {
      *
      * @param paramObject
      */
-    public static void fillPageParam(final JSONObject paramObject) {
+    public void fillPageParam(final JSONObject paramObject) {
         fillPageParam(paramObject, 10);
     }
 }
