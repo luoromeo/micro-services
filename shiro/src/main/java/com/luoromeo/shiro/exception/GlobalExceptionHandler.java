@@ -56,7 +56,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public JSONObject httpRequestMethodHandler() throws Exception {
-        return CommonUtil.errorJson(ErrorEnum.E_500);
+        return CommonUtil.INSTANCE.errorJson(ErrorEnum.E_500);
     }
 
     /**
@@ -81,7 +81,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(UnauthorizedException.class)
     public JSONObject unauthorizedExceptionHandler() throws Exception {
-        return CommonUtil.errorJson(ErrorEnum.E_502);
+        return CommonUtil.INSTANCE.errorJson(ErrorEnum.E_502);
     }
 
     /**
@@ -93,6 +93,6 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(UnauthenticatedException.class)
     public JSONObject unauthenticatedException() throws Exception {
-        return CommonUtil.errorJson(ErrorEnum.E_20011);
+        return CommonUtil.INSTANCE.errorJson(ErrorEnum.E_20011);
     }
 }

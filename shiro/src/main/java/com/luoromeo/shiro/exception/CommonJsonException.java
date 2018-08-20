@@ -23,7 +23,7 @@ public class CommonJsonException extends RuntimeException {
      * @param errorEnum 以错误的ErrorEnum做参数
      */
     public CommonJsonException(ErrorEnum errorEnum) {
-        this.resultJson = CommonUtil.errorJson(errorEnum);
+        this.resultJson = CommonUtil.INSTANCE.errorJson(errorEnum);
     }
 
     public CommonJsonException(JSONObject resultJson) {

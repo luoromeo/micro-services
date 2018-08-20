@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.Filter;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -17,6 +18,8 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+
+import com.luoromeo.shiro.config.redis.SpringCacheManagerWrapper;
 
 /**
  * @description
@@ -61,10 +64,12 @@ public class ShiroConfiguration {
      * 不指定名字的话，自动创建一个方法名第一个字母小写的bean
      */
     @Bean
-    public SecurityManager securityManager() {
+    public SecurityManager securityManager(CacheManager shiroCacheManager, UserRealm userRealm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
 //      securityManager.setSessionManager(new StatelessSessionManager());
-        securityManager.setRealm(userRealm());
+        // 缓存配置
+        securityManager.setCacheManager(shiroCacheManager);
+        securityManager.setRealm(userRealm);
         return securityManager;
     }
 
@@ -73,10 +78,24 @@ public class ShiroConfiguration {
      * Shiro Realm 继承自AuthorizingRealm的自定义Realm,即指定Shiro验证用户登录的类为自定义的
      */
     @Bean
-    public UserRealm userRealm() {
+    public UserRealm userRealm(CacheManager shiroCacheManager) {
         UserRealm userRealm = new UserRealm();
 //        userRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        //以下为redis cache配置
+        userRealm.setCacheManager(shiroCacheManager);
+        userRealm.setCachingEnabled(false);
+        userRealm.setAuthenticationCachingEnabled(true);
+        userRealm.setAuthenticationCacheName("authenticationCache");
+        userRealm.setAuthorizationCachingEnabled(true);
+        userRealm.setAuthorizationCacheName("authorizationCache");
         return userRealm;
+    }
+
+    @Bean
+    public CacheManager shiroCacheManager(org.springframework.cache.CacheManager cacheManager) {
+        SpringCacheManagerWrapper shiroCacheManager = new SpringCacheManagerWrapper();
+        shiroCacheManager.setCacheManager(cacheManager);
+        return shiroCacheManager;
     }
 
     /**
@@ -119,9 +138,9 @@ public class ShiroConfiguration {
     }
 
     @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor() {
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
-        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager());
+        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
     }
 

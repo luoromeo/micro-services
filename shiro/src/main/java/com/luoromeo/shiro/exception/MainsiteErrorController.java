@@ -29,7 +29,7 @@ public class MainsiteErrorController implements ErrorController {
     @RequestMapping(value = ERROR_PATH)
     @ResponseBody
     public JSONObject handleError() {
-        return CommonUtil.errorJson(ErrorEnum.E_501);
+        return CommonUtil.INSTANCE.errorJson(ErrorEnum.E_501);
     }
 
     @Override

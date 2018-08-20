@@ -16,13 +16,9 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.luoromeo.shiro.entity.User;
-import com.luoromeo.shiro.service.RolePermissionsService;
-import com.luoromeo.shiro.service.UserRolesService;
 import com.luoromeo.shiro.service.UserService;
 import com.luoromeo.shiro.utils.Constants;
 
@@ -81,7 +77,7 @@ public class UserRealm extends AuthorizingRealm {
                 //密码
                 user.getPassword(),
                 //salt=username+salt
-                ByteSource.Util.bytes(user.getCredentialsSalt()),
+                ByteSourceUtils.bytes(user.getCredentialsSalt()),
                 //realm name
                 getName()
         );
@@ -90,6 +86,8 @@ public class UserRealm extends AuthorizingRealm {
         user.setPassword("");
         //将用户信息放入session中
         SecurityUtils.getSubject().getSession().setAttribute(Constants.SESSION_USER_INFO, user);
+
+
         return authenticationInfo;
     }
 }

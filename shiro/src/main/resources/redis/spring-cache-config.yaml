@@ -1,0 +1,12 @@
+#权限缓存
+authorizationCache:
+  ttl: 3600000
+  maxIdleTime: 1800000
+#认证缓存
+authenticationCache:
+  ttl: 3600000
+  maxIdleTime: 1800000
+#session会话缓存
+shiro-activeSessionCache:
+  ttl: 7200000
+  maxIdleTime: 3600000
