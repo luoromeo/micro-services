@@ -31,6 +31,8 @@ public class LoginServiceImpl implements LoginService {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         try {
             currentUser.login(token);
+
+//            currentUser.isPermitted("user");
         } catch (AuthenticationException e) {
             e.printStackTrace();
             return Results.Result.failure("登录失败!");

@@ -11,7 +11,7 @@ import com.luoromeo.shiro.entity.UserRoles;
  * @date 2018年08月16日 16:00
  * @modified By
  */
-public interface UserRolesRepository  extends BaseRepository<UserRoles> {
+public interface UserRolesRepository extends BaseRepository<UserRoles> {
 
     List<UserRoles> findAllByUserId(Long userId);
 }

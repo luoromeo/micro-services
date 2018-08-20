@@ -1,7 +1,5 @@
 package com.luoromeo.shiro.repository;
 
-import java.util.List;
-
 import com.luoromeo.commom.base.repository.BaseRepository;
 import com.luoromeo.shiro.entity.User;
 

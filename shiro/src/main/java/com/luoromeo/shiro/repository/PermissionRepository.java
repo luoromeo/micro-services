@@ -1,9 +1,6 @@
 package com.luoromeo.shiro.repository;
 
-import java.util.Collection;
 import java.util.List;
-
-import org.springframework.data.jpa.repository.Query;
 
 import com.luoromeo.commom.base.repository.BaseRepository;
 import com.luoromeo.shiro.entity.Permission;
@@ -16,6 +13,6 @@ import com.luoromeo.shiro.entity.Permission;
  */
 public interface PermissionRepository extends BaseRepository<Permission> {
 
-//    @Query(value = "select p.permissionCode from Permission p where p.id in (:ids)")
+    //    @Query(value = "select p.permissionCode from Permission p where p.id in (:ids)")
     List<Permission> findPermissionByIdIn(List<Long> ids);
 }

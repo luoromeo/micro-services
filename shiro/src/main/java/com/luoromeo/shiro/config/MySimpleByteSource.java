@@ -11,7 +11,7 @@ import org.apache.shiro.codec.Hex;
 import org.apache.shiro.util.ByteSource;
 
 /**
- * @description
+ * @description 解决shiro使用redis cache报错的问题
  * @author zhanghua.luo
  * @date 2018年08月17日 17:38
  * @modified By

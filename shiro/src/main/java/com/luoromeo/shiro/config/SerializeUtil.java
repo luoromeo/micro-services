@@ -8,7 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 /**
- * @description
+ * @description 序列化反序列化工具类
  * @author zhanghua.luo
  * @date 2018年08月20日 09:31
  * @modified By

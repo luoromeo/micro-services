@@ -39,10 +39,10 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         /*
-        3种情况下会进入该方法
-        1、subject.hasRole(“admin”) 或 subject.isPermitted(“admin”)：自己去调用这个是否有什么角色或者是否有什么权限的时候；
-        2、@RequiresRoles("admin") ：在方法上加注解的时候；
-        3、[@shiro.hasPermission name = "admin"][/@shiro.hasPermission]：在页面上加shiro标签的时候，即进这个页面的时候扫描到有这个标签的时候
+         * 3种情况下会进入该方法
+         * 1、subject.hasRole(“admin”) 或 subject.isPermitted(“admin”)：自己去调用这个是否有什么角色或者是否有什么权限的时候；
+         * 2、@RequiresRoles("admin") ：在方法上加注解的时候；
+         * 3、[@shiro.hasPermission name = "admin"][/@shiro.hasPermission]：在页面上加shiro标签的时候，即进这个页面的时候扫描到有这个标签的时候
          */
         Session session = SecurityUtils.getSubject().getSession();
         //查询用户的权限
@@ -65,7 +65,7 @@ public class UserRealm extends AuthorizingRealm {
             //没找到帐号
             throw new UnknownAccountException();
         }
-        if(Boolean.TRUE.equals(!user.getAvailable())) {
+        if (Boolean.TRUE.equals(!user.getAvailable())) {
             //帐号锁定
             throw new LockedAccountException();
         }
@@ -77,7 +77,7 @@ public class UserRealm extends AuthorizingRealm {
                 //密码
                 user.getPassword(),
                 //salt=username+salt
-                ByteSourceUtils.bytes(user.getCredentialsSalt()),
+                ByteSourceUtils.INSTANCE.bytes(user.getCredentialsSalt()),
                 //realm name
                 getName()
         );
